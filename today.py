@@ -15,7 +15,7 @@ def processStr(str):
     
     
 def main():    
-    date_str=time.strftime("%mÔÂ%dÈÕ",time.localtime())
+    date_str=time.strftime("%mæœˆ%dæ—¥",time.localtime())
     base_url="https://zh.wikipedia.org/zh-cn/%s"%date_str
     
     html=getHtml(base_url)
