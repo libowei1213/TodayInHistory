@@ -4,6 +4,7 @@ import re
 import urllib
 import datetime
 import os
+from mysql import savedb
 
 def getHtml(url):
     page = urllib.urlopen(url)
@@ -56,8 +57,17 @@ def main():
             line = line.replace(year,'',1)
             if line.strip()=='':
                 continue
-            line = year + line + '\n'
-            saveFile(str,line)
+            #line = year + line + '\n'
+            
+            data=[]
+            data.append('1')
+            data.append(year)
+            data.append(str)
+            data.append(line)
+            
+            savedb(data)
+            
+            #saveFile(str,line)
         print str
     
 
