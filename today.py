@@ -27,9 +27,11 @@ def getList():
 def processHtml(html):
     reg_list=[]
     reg_list.append('<[\s\S]+?>') #标签
+    reg_list.append('\[[\s\S]+?]') #引用、来源请求 
     for reg in reg_list:
         html = re.compile(reg).sub('',html)    
     return html.split('\n');   
+    
         
     
 def saveFile(date,content):
@@ -39,37 +41,44 @@ def saveFile(date,content):
     
 def main():
 
+
+    reg_list=[]
+    reg_list.append(r'<h2><[\s\S]+?>大事记[\s\S]+?</h2>\s+?<ul>([\s\S]+?)<h2>')
+    reg_list.append(r'<h2><[\s\S]+?>出生[\s\S]+?</h2>\s+?<ul>([\s\S]+?)<h2>')
+    reg_list.append(r'<h2><[\s\S]+?>逝世[\s\S]+?</h2>\s+?<ul>([\s\S]+?)<h2>')
+
     list = getList()
-    for str in list:
-        url="https://zh.wikipedia.org/zh-cn/%s"%str
+    for date in list:
+        url="https://zh.wikipedia.org/zh-cn/%s"%date
         html=getHtml(url)
-        reg=r'</h2>\s+?<ul>([\s\S]+?)<h2>'
-        html_list=re.findall(re.compile(reg),html)
-        year=''
-        for line in processHtml(html_list[0]):
-            if line.strip()=='':
-                continue
-            match = re.compile(r'^[前]?\d{1,4}年：').match(line)
+        
+        
+        year = ''
+        i = 0
+        for reg in reg_list:
+            match=re.compile(reg).search(html)
             if match:
-                year = match.group()
-            else:
-                line = year + line
-            line = line.replace(year,'',1)
-            if line.strip()=='':
-                continue
-            #line = year + line + '\n'
-            
-            data=[]
-            data.append('1')
-            data.append(year)
-            data.append(str)
-            data.append(line)
-            
-            savedb(data)
-            
-            #saveFile(str,line)
-        print str
-    
+                text = match.group(1)
+                for line in processHtml(text):
+                    if line.strip()=='':
+                        continue
+                    match = re.compile(r'^前\d{1,4}年：|^\d{1,4}年：').search(line)
+                    if match:
+                        year = match.group()
+                        line = line.replace(year,'',1)
+                    if line.strip()=='':
+                        continue
+                    data=[]
+                    data.append(i)
+                    data.append(year.replace('：',''))
+                    data.append(date)
+                    data.append(line)
+                    
+                    savedb(data)
+                    #print data
+            i += 1        
+
+                    
 
 if __name__=="__main__":
     
