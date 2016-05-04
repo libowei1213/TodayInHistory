@@ -62,15 +62,16 @@ def main():
                 for line in processHtml(text):
                     if line.strip()=='':
                         continue
-                    match = re.compile(r'^前\d{1,4}年：|^\d{1,4}年：').search(line)
+                    match = re.compile(r'^前\d{1,4}年|^\d{1,4}年').search(line)
                     if match:
                         year = match.group()
                         line = line.replace(year,'',1)
+                        line = re.compile(r'^：|^:').sub('',line)
                     if line.strip()=='':
                         continue
                     data=[]
                     data.append(i)
-                    data.append(year.replace('：',''))
+                    data.append(year)
                     data.append(date)
                     data.append(line)
                     
