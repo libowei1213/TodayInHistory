@@ -1,7 +1,7 @@
 #eclipse files
 .classpath
 .project
-/.settings
+.settings
 .gitattributes
 .gitignore
 
