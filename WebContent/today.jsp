@@ -1,8 +1,8 @@
 <%@page import="today.SortUtil"%>
 <%@page import="today.Event"%>
 <%@page import="java.util.List"%>
-<%@page import="java.util.Date"%>
 <%@page import="today.EventDao"%>
+<%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -59,21 +59,21 @@
 </head>
 
 <%
-    String date = (String) request.getAttribute("date");
-    if (null == date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日");
-        date = sdf.format(new Date());
-    }
+	String date = (String) request.getAttribute("date");
+	if (null == date) {
+		SimpleDateFormat sdf = new SimpleDateFormat("M月d日");
+		date = sdf.format(new Date());
+	}
 
-    SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy年M月d日");
-    String today = sdf2.format(new Date());
+	SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy年M月d日");
+	String today = sdf2.format(new Date());
 
-    EventDao dao = new EventDao();
-    List<Event> list = dao.getEventByDate(date);
+	EventDao dao = new EventDao();
+	List<Event> list = dao.getEventByDate(date);
 
-    List<Event> listEvent = SortUtil.getEventByType(list, "0");
-    List<Event> listBirth = SortUtil.getEventByType(list, "1");
-    List<Event> listDeath = SortUtil.getEventByType(list, "2");
+	List<Event> listEvent = SortUtil.getEventByType(list, "0");
+	List<Event> listBirth = SortUtil.getEventByType(list, "1");
+	List<Event> listDeath = SortUtil.getEventByType(list, "2");
 %>
 
 
@@ -94,14 +94,14 @@
 					<h4 class="list-group-item active" onclick="toggle('event');">大事记</h4>
 					<div id="event">
 						<%
-						    for (Event event : listEvent) {
+							for (Event event : listEvent) {
 						%>
 						<div class="list-group-item">
 							<h5 class="list-group-item-heading"><%=event.getYear()%></h5>
 							<p class="list-group-item-text"><%=event.getMessage()%></p>
 						</div>
 						<%
-						    }
+							}
 						%>
 					</div>
 				</div>
@@ -109,14 +109,14 @@
 					<h4 class="list-group-item active" onclick="toggle('birth');">出生</h4>
 					<div id="birth">
 						<%
-						    for (Event event : listBirth) {
+							for (Event event : listBirth) {
 						%>
 						<div class="list-group-item">
 							<h5 class="list-group-item-heading"><%=event.getYear()%></h5>
 							<p class="list-group-item-text"><%=event.getMessage()%></p>
 						</div>
 						<%
-						    }
+							}
 						%>
 					</div>
 				</div>
@@ -124,14 +124,14 @@
 					<h4 class="list-group-item active" onclick="toggle('death');">逝世</h4>
 					<div id="death">
 						<%
-						    for (Event event : listDeath) {
+							for (Event event : listDeath) {
 						%>
 						<div class="list-group-item">
 							<h5 class="list-group-item-heading"><%=event.getYear()%></h5>
 							<p class="list-group-item-text"><%=event.getMessage()%></p>
 						</div>
 						<%
-						    }
+							}
 						%>
 					</div>
 				</div>
