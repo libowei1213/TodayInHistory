@@ -81,9 +81,11 @@
 
 <body>
 	<div class="page-header" align="center">
-		<h1>
-			<small>历史上的 </small><%=date%>
-		</h1>
+		<span>
+			<h1>
+				<small>历史上的 </small><%=date%>
+			</h1> <a href="#0">大事记</a> <a href="#1">出生</a> <a href="#2">逝世</a>
+		</span>
 	</div>
 
 
@@ -91,6 +93,7 @@
 		<div class="row clearfix">
 			<div class="col-md-9 column">
 				<div class="list-group">
+					<a name="0" style="visibility: collapse;"></a>
 					<h4 class="list-group-item active" onclick="toggle('event');">大事记</h4>
 					<div id="event">
 						<%
@@ -106,6 +109,7 @@
 					</div>
 				</div>
 				<div class="list-group">
+					<a name="1" style="visibility: collapse;"></a>
 					<h4 class="list-group-item active" onclick="toggle('birth');">出生</h4>
 					<div id="birth">
 						<%
@@ -121,6 +125,7 @@
 					</div>
 				</div>
 				<div class="list-group">
+					<a name="2" style="visibility: collapse;"></a>
 					<h4 class="list-group-item active" onclick="toggle('death');">逝世</h4>
 					<div id="death">
 						<%
