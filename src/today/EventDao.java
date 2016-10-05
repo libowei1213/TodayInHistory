@@ -25,6 +25,7 @@ public class EventDao {
                 event.setType(type);
                 event.setYear(year);
                 event.setMessage(message);
+                event.setDate(date);
                 list.add(event);
             }
             rs.close();
