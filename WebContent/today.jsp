@@ -148,6 +148,9 @@
 					<h3><%=today%></h3>
 				</div>
 				<div id="date_selector" align="center" data-date="<%=date%>"></div>
+				<div align="center" style="padding-top: 20px">
+					<a href="https://github.com/libowei1213/TodayInHistory#api" target="_blank">API接口说明</a>
+				</div>
 			</div>
 
 
